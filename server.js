@@ -1,73 +1,87 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
-
 const app = express();
+
 const PORT = process.env.PORT || 3000;
+const DATA_FILE = path.join(__dirname, 'espacios.json');
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://pueawawnxvcnxvhepnsh.supabase.co';
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_PfFF9627-kngHpVC2DhOlQ_aTjYn81w';
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+// Middleware para procesar JSON y servir archivos estáticos desde la carpeta 'public'
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 1. Obtener todos los espacios
-app.get('/api/espacios', async (req, res) => {
-    try {
-        const { data, error } = await supabase
-            .from('espacios')
-            .select('*')
-            .order('id', { ascending: false });
+// Ruta explícita para la página principal
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-        if (error) {
-            console.error("Error de Supabase (GET):", error);
-            return res.status(500).json({ error: error.message });
-        }
-        res.json(data);
+// Rutas explícitas para el panel de administración (soporta /admin y /admin.html)
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+app.get('/admin.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// API: Obtener todos los espacios registrados
+app.get('/api/espacios', (req, res) => {
+    if (!fs.existsSync(DATA_FILE)) {
+        return res.json([]);
+    }
+    try {
+        const data = fs.readFileSync(DATA_FILE, 'utf8');
+        res.json(JSON.parse(data));
     } catch (error) {
-        console.error("Error del servidor (GET):", error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Error al leer los datos.' });
     }
 });
 
-// 2. Registrar un nuevo espacio
-app.post('/api/espacios', async (req, res) => {
-    try {
-        console.log("Datos recibidos para guardar:", req.body);
-        const { titulo, programa, autor, email, url } = req.body;
-        
-        const { data, error } = await supabase
-            .from('espacios')
-            .insert([{ titulo, programa, autor, email, url }])
-            .select();
-
-        if (error) {
-            console.error("Error de Supabase al insertar (POST):", error);
-            return res.status(500).json({ error: error.message });
+// API: Registrar un nuevo espacio
+app.post('/api/espacios', (req, res) => {
+    let espacios = [];
+    if (fs.existsSync(DATA_FILE)) {
+        try {
+            espacios = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+        } catch (e) {
+            espacios = [];
         }
-        
-        res.json({ message: 'Registrado con éxito', data });
+    }
+
+    const nuevoEspacio = {
+        id: Date.now(),
+        titulo: req.body.titulo,
+        programa: req.body.programa,
+        autor: req.body.autor,
+        email: req.body.email,
+        url: req.body.url
+    };
+
+    espacios.push(nuevoEspacio);
+
+    try {
+        fs.writeFileSync(DATA_FILE, JSON.stringify(espacios, null, 2), 'utf8');
+        res.status(201).json({ mensaje: 'Espacio registrado con éxito', espacio: nuevoEspacio });
     } catch (error) {
-        console.error("Error del servidor (POST):", error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Error al guardar el archivo.' });
     }
 });
 
-// 3. Eliminar un espacio
-app.delete('/api/espacios/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { error } = await supabase
-            .from('espacios')
-            .delete()
-            .eq('id', id);
+// API: Eliminar un espacio por ID (para el administrador)
+app.delete('/api/espacios/:id', (req, res) => {
+    const id = Number(req.params.id);
+    if (!fs.existsSync(DATA_FILE)) {
+        return res.status(404).json({ error: 'No hay registros.' });
+    }
 
-        if (error) throw error;
-        res.json({ message: 'Eliminado correctamente' });
+    try {
+        let espacios = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+        const filtrados = espacios.filter(e => e.id !== id);
+        
+        fs.writeFileSync(DATA_FILE, JSON.stringify(filtrados, null, 2), 'utf8');
+        res.json({ mensaje: 'Registro eliminado correctamente' });
     } catch (error) {
-        console.error("Error al eliminar:", error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Error al eliminar el registro.' });
     }
 });
 
