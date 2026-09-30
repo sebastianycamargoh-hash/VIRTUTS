@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRTUTS - Unidades Tecnológicas de Santander</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-futurista {
+            background-color: #090d0b;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animar-entrada {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        .transicion-suave {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-futurista text-slate-100 font-sans min-h-screen">
+    
+    <header class="bg-emerald-950/80 backdrop-blur-md border-b border-emerald-800/40 text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div>
+                <h1 class="font-bold text-lg tracking-wider text-emerald-400">VIRTUTS</h1>
+                <p class="text-xs text-emerald-300/70">Unidades Tecnológicas de Santander</p>
+            </div>
+            <div class="space-x-2">
+                <button onclick="toggleFormulario()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm px-3.5 py-1.5 rounded transicion-suave hover:scale-105 shadow-sm shadow-emerald-900/50">
+                    + Registrar Espacio
+                </button>
+                <a href="https://framevr.io/" target="_blank" class="bg-slate-900 hover:bg-slate-800 text-emerald-400 text-sm px-3.5 py-1.5 rounded transicion-suave border border-emerald-700/50">
+                    Ir a Frame VR
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+        
+        <section id="seccion-formulario" class="hidden bg-slate-900/90 backdrop-blur-md p-6 rounded-xl border border-emerald-500/20 shadow-2xl max-w-lg mx-auto animar-entrada">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
+                <h2 class="font-semibold text-emerald-400 text-sm tracking-wide">NUEVO REGISTRO DE ESPACIO VR</h2>
+                <button onclick="toggleFormulario()" class="text-slate-400 hover:text-white font-bold transicion-suave">✕</button>
+            </div>
+            
+            <form onsubmit="enviarFormulario(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Título del Espacio</label>
+                    <input type="text" id="titulo" required class="w-full p-2 text-sm bg-slate-950 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-emerald-500 transicion-suave">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Programa Académico</label>
+                    <select id="programa" class="w-full p-2 text-sm bg-slate-950 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-emerald-500 transicion-suave">
+                        <option value="Tecnología en Implementación de Sistemas Electrónicos Industriales">Tecnología en Implementación de Sistemas Electrónicos Industriales</option>
+                        <option value="Ingeniería Electrónica">Ingeniería Electrónica</option>
+                        <option value="Tecnología en Gestión de Sistemas de Telecomunicaciones">Tecnología en Gestión de sistemas de Telecomunicaciones</option>
+                        <option value="Ingeniería de Telecomunicaciones">Ingeniería de Telecomunicaciones</option>
+                        <option value="Tecnología en Operación y Mantenimiento Electromecánico">Tecnología en Operación y Mantenimiento Electromecánico</option>
+                        <option value="Ingeniería Electromecánica">Ingeniería Electromecánica</option>
+                        <option value="Tecnología en Manejo de Recursos Ambientales">Tecnología en Manejo de Recursos Ambientales</option>
+                        <option value="Ingeniería Ambiental">Ingeniería Ambiental</option>
+                        <option value="Tecnología en Instalación de sistemas Eléctricos">Tecnología en Instalación de sistemas Eléctricos (Anterior Tecnología en Electricidad Industrial)</option>
+                        <option value="Ingeniería Eléctrica">Ingeniería Eléctrica</option>
+                        <option value="Tecnología en Desarrollo de Sistemas informáticos">Tecnología en Desarrollo de Sistemas informáticos</option>
+                        <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                        <option value="Tecnología en Producción Industrial">Tecnología en Producción Industrial</option>
+                        <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                        <option value="Tecnología en Levantamientos Topográficos">Tecnología en Levantamientos Topográficos</option>
+                        <option value="Ingeniería en Topografía">Ingeniería en Topografía</option>
+                        <option value="Tecnología en Logística del Transporte">Tecnología en Logística del Transporte</option>
+                        <option value="Ingeniería en Sistemas de Transporte">Ingeniería en Sistemas de Transporte</option>
+                        <option value="Tecnología en Construcción de Obras Civiles">Tecnología en Construcción de Obras Civiles</option>
+                        <option value="Ingeniería Civil">Ingeniería Civil</option>
+                        <option value="Tecnología en Gestión Económica de Proyectos">Tecnología en Gestión Económica de Proyectos</option>
+                        <option value="Economía">Economía</option>
+                        <option value="Tecnología en Gestión Agroindustrial">Tecnología en Gestión Agroindustrial</option>
+                        <option value="Ingeniería Agroindustrial">Ingeniería Agroindustrial</option>
+                        <option value="Tecnología en Entrenamiento Deportivo">Tecnología en Entrenamiento Deportivo</option>
+                        <option value="Tecnología en Manejo de la Información Contable">Tecnología en Manejo de la Información Contable</option>
+                        <option value="Tecnología en Gestión de la Moda">Tecnología en Gestión de la Moda</option>
+                        <option value="Tecnología en Gestión Bancaria y Financiera">Tecnología en Gestión Bancaria y Financiera</option>
+                        <option value="Tecnología en Mercadeo y Gestión Comercial">Tecnología en Mercadeo y Gestión Comercial</option>
+                        <option value="Tecnología en Gestión Empresarial">Tecnología en Gestión Empresarial</option>
+                        <option value="Profesional en Cultura Física y Deporte">Profesional en Cultura Física y Deporte</option>
+                        <option value="Contaduría Pública">Contaduría Pública</option>
+                        <option value="Profesional en Diseño de Modas">Profesional en Diseño de Modas</option>
+                        <option value="Administración Financiera">Administración Financiera</option>
+                        <option value="Mercadeo">Mercadeo</option>
+                        <option value="Administración de Empresas">Administración de Empresas</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Usuario Responsable</label>
+                    <input type="text" id="autor" required placeholder="Nombre del usuario responsable" class="w-full p-2 text-sm bg-slate-950 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-emerald-500 transicion-suave">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Correo Electrónico</label>
+                    <input type="email" id="email" required placeholder="correo@correo.uts.edu.co" class="w-full p-2 text-sm bg-slate-950 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-emerald-500 transicion-suave">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Enlace o Código Iframe Frame VR</label>
+                    <input type="text" id="url" required placeholder="Pega el enlace o el código <iframe...> completo" class="w-full p-2 text-sm bg-slate-950 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-emerald-500 transicion-suave">
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm py-2.5 rounded transicion-suave font-medium shadow-md shadow-emerald-900/40">
+                    Guardar Registro
+                </button>
+            </form>
+        </section>
+
+        <div id="alerta" class="hidden bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs p-3 rounded text-center animar-entrada shadow-lg">
+            Registro guardado con éxito. Notificación enviada al correo registrado.
+        </div>
+
+        <section class="space-y-6">
+            <h2 class="font-bold text-slate-100 text-xl text-center tracking-wide">Espacios Académicos Disponibles</h2>
+            
+            <div class="flex flex-col md:flex-row gap-3 justify-between items-center bg-slate-900/60 p-4 rounded-xl border border-slate-800 backdrop-blur-sm">
+                <input type="text" id="buscador" oninput="filtrarEspacios()" placeholder="Buscar por título o usuario..." class="w-full md:w-2/3 p-2 text-sm bg-slate-950 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-emerald-500 transicion-suave">
+                
+                <select id="filtro-programa" onchange="filtrarEspacios()" class="w-full md:w-1/3 p-2 text-sm bg-slate-950 border border-slate-800 rounded text-slate-100 focus:outline-none focus:border-emerald-500 transicion-suave">
+                    <option value="TODOS">Todos los programas</option>
+                    <option value="Tecnología en Implementación de Sistemas Electrónicos Industriales">Tecnología en Implementación de Sistemas Electrónicos Industriales</option>
+                    <option value="Ingeniería Electrónica">Ingeniería Electrónica</option>
+                    <option value="Tecnología en Gestión de Sistemas de Telecomunicaciones">Tecnología en Gestión de sistemas de Telecomunicaciones</option>
+                    <option value="Ingeniería de Telecomunicaciones">Ingeniería de Telecomunicaciones</option>
+                    <option value="Tecnología en Operación y Mantenimiento Electromecánico">Tecnología en Operación y Mantenimiento Electromecánico</option>
+                    <option value="Ingeniería Electromecánica">Ingeniería Electromecánica</option>
+                    <option value="Tecnología en Manejo de Recursos Ambientales">Tecnología en Manejo de Recursos Ambientales</option>
+                    <option value="Ingeniería Ambiental">Ingeniería Ambiental</option>
+                    <option value="Tecnología en Instalación de sistemas Eléctricos">Tecnología en Instalación de sistemas Eléctricos</option>
+                    <option value="Ingeniería Eléctrica">Ingeniería Eléctrica</option>
+                    <option value="Tecnología en Desarrollo de Sistemas informáticos">Tecnología en Desarrollo de Sistemas informáticos</option>
+                    <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                    <option value="Tecnología en Producción Industrial">Tecnología en Producción Industrial</option>
+                    <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                    <option value="Tecnología en Levantamientos Topográficos">Tecnología en Levantamientos Topográficos</option>
+                    <option value="Ingeniería en Topografía">Ingeniería en Topografía</option>
+                    <option value="Tecnología en Logística del Transporte">Tecnología en Logística del Transporte</option>
+                    <option value="Ingeniería en Sistemas de Transporte">Ingeniería en Sistemas de Transporte</option>
+                    <option value="Tecnología en Construcción de Obras Civiles">Tecnología en Construcción de Obras Civiles</option>
+                    <option value="Ingeniería Civil">Ingeniería Civil</option>
+                    <option value="Tecnología en Gestión Económica de Proyectos">Tecnología en Gestión Económica de Proyectos</option>
+                    <option value="Economía">Economía</option>
+                    <option value="Tecnología en Gestión Agroindustrial">Tecnología en Gestión Agroindustrial</option>
+                    <option value="Ingeniería Agroindustrial">Ingeniería Agroindustrial</option>
+                    <option value="Tecnología en Entrenamiento Deportivo">Tecnología en Entrenamiento Deportivo</option>
+                    <option value="Tecnología en Manejo de la Información Contable">Tecnología en Manejo de la Información Contable</option>
+                    <option value="Tecnología en Gestión de la Moda">Tecnología en Gestión de la Moda</option>
+                    <option value="Tecnología en Gestión Bancaria y Financiera">Tecnología en Gestión Bancaria y Financiera</option>
+                    <option value="Tecnología en Mercadeo y Gestión Comercial">Tecnología en Mercadeo y Gestión Comercial</option>
+                    <option value="Tecnología en Gestión Empresarial">Tecnología en Gestión Empresarial</option>
+                    <option value="Profesional en Cultura Física y Deporte">Profesional en Cultura Física y Deporte</option>
+                    <option value="Contaduría Pública">Contaduría Pública</option>
+                    <option value="Profesional en Diseño de Modas">Profesional en Diseño de Modas</option>
+                    <option value="Administración Financiera">Administración Financiera</option>
+                    <option value="Mercadeo">Mercadeo</option>
+                    <option value="Administración de Empresas">Administración de Empresas</option>
+                </select>
+            </div>
+
+            <div id="lista-espacios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+    </main>
+
+    <script>
+        let todosLosEspacios = [];
+
+        function toggleFormulario() {
+            const seccion = document.getElementById('seccion-formulario');
+            seccion.classList.toggle('hidden');
+        }
+
+        async function cargarEspacios() {
+            const res = await fetch('/api/espacios');
+            todosLosEspacios = await res.json();
+            mostrarEspacios(todosLosEspacios);
+        }
+
+        function mostrarEspacios(espacios) {
+            const contenedor = document.getElementById('lista-espacios');
+            contenedor.innerHTML = '';
+            
+            if (espacios.length === 0) {
+                contenedor.innerHTML = `<p class="col-span-full text-center text-slate-500 text-sm py-8">No se encontraron espacios registrados.</p>`;
+                return;
+            }
+
+            espacios.forEach(esp => {
+                contenedor.innerHTML += `
+                    <div class="bg-slate-900/80 backdrop-blur-sm p-5 rounded-xl border border-slate-800 flex flex-col justify-between transicion-suave hover:-translate-y-1 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-950/30 animar-entrada">
+                        <div>
+                            <span class="inline-block text-[10px] font-semibold bg-emerald-950 text-emerald-400 px-2.5 py-1 rounded border border-emerald-800/50 mb-3 uppercase tracking-wider">${esp.programa}</span>
+                            <h3 class="font-bold text-white text-base">${esp.titulo}</h3>
+                            <p class="text-xs text-slate-400 mt-1.5">Usuario: ${esp.autor}</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Contacto: ${esp.email || 'N/A'}</p>
+                        </div>
+                        <div class="mt-5 pt-3 border-t border-slate-800/80 flex justify-between items-center">
+                            <a href="${esp.url}" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded transicion-suave font-medium">Acceder</a>
+                            <span class="text-[11px] text-slate-500 italic">Público</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filtrarEspacios() {
+            const texto = document.getElementById('buscador').value.toLowerCase();
+            const programaSeleccionado = document.getElementById('filtro-programa').value;
+
+            const filtrados = todosLosEspacios.filter(esp => {
+                const coincideTexto = esp.titulo.toLowerCase().includes(texto) || esp.autor.toLowerCase().includes(texto);
+                const coincidePrograma = programaSeleccionado === 'TODOS' || esp.programa === programaSeleccionado;
+                return coincideTexto && coincidePrograma;
+            });
+
+            mostrarEspacios(filtrados);
+        }
+
+        async function enviarFormulario(e) {
+            e.preventDefault();
+            
+            let urlIngresada = document.getElementById('url').value.trim();
+            
+            // Si el usuario pegó el código <iframe> completo, extraemos únicamente la URL contenida en src="..."
+            const coincideSrc = urlIngresada.match(/src=["']([^"']+)["']/i);
+            if (coincideSrc && coincideSrc[1]) {
+                urlIngresada = coincideSrc[1];
+            }
+
+            const nuevoEspacio = {
+                titulo: document.getElementById('titulo').value,
+                programa: document.getElementById('programa').value,
+                autor: document.getElementById('autor').value,
+                email: document.getElementById('email').value,
+                url: urlIngresada
+            };
+
+            const res = await fetch('/api/espacios', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoEspacio)
+            });
+
+            if(res.ok) {
+                e.target.reset();
+                toggleFormulario();
+                cargarEspacios();
+                
+                const alerta = document.getElementById('alerta');
+                alerta.classList.remove('hidden');
+                setTimeout(() => alerta.classList.add('hidden'), 3000);
+            }
+        }
+
+        cargarEspacios();
+    </script>
+</body>
+</html>
